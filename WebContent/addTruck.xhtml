@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic - Trucks</ui:define>
+		<ui:define name="content">
+			<h1>Add Truck to Inventory</h1>
+			<hr />
+			<h:form>
+				<p:panel id ="panel" header="Truck Details" style="margin-bottom:10px;">
+					<p:messages id="messages" showDetail="true" closeable="true"/>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="make" value="Make:"/>
+						<p:inputText id="make" value="#{vehicle.make}"/>
+						<h:outputLabel for="model" value="Model:"/>
+						<p:inputText id="model" value="#{vehicle.model}"/>
+						<h:outputLabel for="color" value="Color"/>
+						<p:inputText id="color" value="#{vehicle.color}"/>
+						<h:outputLabel for="plate" value="Plate"/>
+						<p:inputText id="plate" value="#{vehicle.plate}"/>
+						<h:outputLabel for="year" value="Year"/>
+						<p:inputText id="year" value="#{vehicle.year}"/>
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Submit" action="#{vehicleUtility.addVehicle}" update="messages"/>
+			</h:form>
+
+			<h:link value="Contact Us" outcome="contactUs"></h:link>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

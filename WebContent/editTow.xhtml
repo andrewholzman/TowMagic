@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic - Edit Tow</ui:define>
+		<ui:define name="content">
+			<h1>Edit Tow</h1>
+			<hr />
+			<h:form id="tow-edit">
+				<p:messages id="formMessage" showDetail="true" closeable="true" />
+				<p:panel id="towDetailPanel" header="Tow Info"
+					style="margin:0.5em; margin-left:0em; width:20em;">
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="towTime" value="Estimated Time:" />
+						<p:calendar id="towTime" value="#{towVO.towVar.estimateTime}" pattern="MM/DD/yyyy HH:mm:ss" />
+						<h:outputLabel for="towStatus" value="Tow Status:" />
+						<p:inputText id="towStatus" value="#{towVO.towVar.status}" />
+					</h:panelGrid>
+				</p:panel>
+					
+				<p:panel id="customerPanel" header="Customer"
+					style="margin:0.5em; margin-left:0em; width:20em;">
+					<p:messages id="custMessages" showDetail="true" closeable="true" />
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="customerID" value="Customer:" />
+						<h:outputText id="customerID" value="#{towVO.customer.id}" />
+						<h:outputLabel for="custFirstName" value="First Name" />
+						<p:inputText id="custFirstName"
+							value="#{towVO.customer.firstName}" />
+						<h:outputLabel for="custLastName" value="Last Name" />
+						<p:inputText id="custLastName" value="#{towVO.customer.lastName}" />
+						<h:outputLabel for="phone" value="Phone" />
+						<p:inputText id="phone" value="#{towVO.customer.phone}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="driverPanel" header="Driver"
+					style="margin:0.5em; margin-left:0em; width:20em;">
+					<p:messages id="driverMessages" showDetail="true" closeable="true" />
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="driverId" value="Driver" />
+						<h:outputText value="#{towVO.driver.id}" />
+						<h:outputLabel for="driverFirstName" value="First Name" />
+						<p:inputText id="driverFirstName"
+							value="#{towVO.driver.firstName}" />
+						<h:outputLabel for="driverLastName" value="Last Name" />
+						<p:inputText id="driverLastName" value="#{towVO.driver.lastName}" />
+						<h:outputLabel for="userName" value="Username" />
+						<p:inputText id="userName" value="#{towVO.driver.userName}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:panel id="truckPanel" header="Truck"
+					style="margin:0.5em; margin-left:0em; width:20em;">
+					<p:messages id="truckMessages" showDetail="true" closeable="true" />
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="vehicleId" value="Vehicle" />
+						<h:outputText value="#{towVO.vehicle.id}" />
+						<h:outputLabel for="make" value="Make" />
+						<p:inputText id="make" value="#{towVO.vehicle.make}" />
+						<h:outputLabel for="model" value="Model" />
+						<p:inputText id="model" value="#{towVO.vehicle.model}" />
+						<h:outputLabel for="color" value="Color" />
+						<p:inputText id="color" value="#{towVO.vehicle.color}" />
+						<h:outputLabel for="plate" value="Plate" />
+						<p:inputText id="plate" value="#{towVO.vehicle.plate}" />
+						<h:outputLabel for="year" value="Year" />
+						<p:inputText id="year" value="#{towVO.vehicle.year}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Submit" action="#{towVO.updateTowInfo}"
+					update="formMessage" style="margin-bottom:1em">
+					<f:ajax execute="@form" render="tow-edit" />
+				</p:commandButton>
+
+			</h:form>
+
+			<h:link value="Contact Us" outcome="contactUs"></h:link>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

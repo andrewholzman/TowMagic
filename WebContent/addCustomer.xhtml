@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic - Customers</ui:define>
+		<ui:define name="content">
+			<h1>Create Customer</h1>
+			<hr />
+			<h:form>
+				<p:panel id ="panel" header="Customer Details" style="margin-bottom:10px;">
+					<p:messages id="messages" showDetail="true" closeable="true"/>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="firstName" value="First Name:"/>
+						<p:inputText id="firstName" value="#{customer.firstName}"/>
+						<h:outputLabel for="lastName" value="Last Name:"/>
+						<p:inputText id="lastName" value="#{customer.lastName}"/>
+						<h:outputLabel for="phone" value="Phone:"/>
+						<p:inputText id="Phone" value="#{customer.phone}"/>
+					</h:panelGrid>
+					<h:panelGrid columns="2" cellpadding="5">
+						<h:outputLabel for="lineOne" value="Address Line One:"/>
+						<p:inputText id="lineOne" value="#{address.lineOne}"/>
+						<h:outputLabel for="lineTwo" value="Address Line Two:"/>
+						<p:inputText id="lineTwo" value="#{address.lineTwo}"/>
+						<h:outputLabel for="city" value="City:"/>
+						<p:inputText id="city" value="#{address.city}"/>
+						<h:outputLabel for="state" value="State:"/>
+						<p:inputText id="state" value="#{address.state}"/>
+						<h:outputLabel for="postal" value="Zip Code:"/>
+						<p:inputText id="postal" value="#{address.postal}"/>
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Submit" action="#{customerUtility.addCustomer}" update="messages"/>
+			</h:form>
+
+			<h:link value="Contact Us" outcome="contactUs"></h:link>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

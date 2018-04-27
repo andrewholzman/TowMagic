@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic - Customers</ui:define>
+		<ui:define name="content">
+			<h1>Customers</h1>
+			<hr />
+			<h:link value="Add Customer" outcome="addCustomer"></h:link>
+			<hr />
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:dataTable id="customerList" var="cust"
+					value="#{customerUtility.customers}" editable="true"
+					rowKey="#{cust.id}">
+
+					<p:ajax event="rowEdit" listener="#{customerUtility.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{customerUtility.onRowCancel}" update=":form:msgs" />
+					<p:column headerText="ID">
+						<h:outputText value="#{cust.id}" />
+					</p:column>
+					<p:column headerText="First Name">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cust.firstName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{cust.firstName}" style="width:100%"
+									label="First Name" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Last Name">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cust.lastName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{cust.lastName}" style="width:100%"
+									label="Last Name" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Phone">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{cust.phone}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{cust.phone}" style="width:100%"
+									label="Phone" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Address">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText
+									value="#{customerUtility.getCustomerAddress(cust.addressID)}" />
+							</f:facet>
+							<f:facet name="input">
+								<h:outputText value="Address Not Yet Editable" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:rowEditor />
+						<p:commandLink id="deleteLink" styleClass="ui-icon ui-icon-trash"
+							update="@form" action="#{customerUtility.removeHandler(cust)}" />
+
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

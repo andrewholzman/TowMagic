@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.towmagic.dto.Tow" table="tow" catalog="towmagic">
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <!--  <generator class="identity" /> this is being done in the DB-->
+        </id>
+        <property name="customerID" type="java.lang.Integer">
+            <column name="CustomerID" not-null="false" unique="false" />
+        </property>
+        <property name="driverID" type="java.lang.Integer">
+            <column name="DriverID" not-null="false" unique="false" />
+        </property>        
+        <property name="vehicleID" type="java.lang.Integer">
+            <column name="VehicleID" not-null="false" unique="false" />
+        </property>
+        <property name="estimateTime" type="timestamp">
+            <column name="InitialTimeEstimate" not-null="false" unique="false" />
+        </property>
+        <property name="status" type="string">
+            <column name="Status" length="50" not-null="false" unique="false" />
+        </property>
+    </class>
+</hibernate-mapping>

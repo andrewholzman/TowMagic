@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic - Employees</ui:define>
+		<ui:define name="content">
+			<h1>Employees</h1>
+			<hr />
+			<h:link value="Add Employee" outcome="addEmployee"></h:link>
+			
+			<hr />
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:dataTable id="employeeList" value="#{employeeUtility.employees}"
+					var="emp" editable="true" rowKey="#{emp.id}">
+
+					<p:ajax event="rowEdit" listener="#{employeeUtility.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{employeeUtility.onRowCancel}" update=":form:msgs" />
+					<p:column headerText="ID">
+						<h:outputText value="#{emp.id}" />
+					</p:column>
+					<p:column headerText="First Name">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{emp.firstName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{emp.firstName}" style="width:100%"
+									label="First Name" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Last Name">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{emp.lastName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{emp.lastName}" style="width:100%"
+									label="Last Name" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Username">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{emp.userName}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{emp.userName}" style="width:100%"
+									label="Username" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Password">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="Password Hidden" />
+							</f:facet>
+							<f:facet name="input">
+								<h:inputSecret value="#{emp.password}" style="width:100%"
+									label="Password" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+
+					<p:column style="width:32px">
+						<p:rowEditor />
+						<p:commandLink id="deleteLink" styleClass="ui-icon ui-icon-trash"
+							update="@form"
+							action="#{employeeUtility.removeHandler(emp)}" />
+
+					</p:column>
+				</p:dataTable>
+			</h:form>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

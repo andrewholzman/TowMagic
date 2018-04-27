@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic</ui:define>
+		<ui:define name="content">
+			<h1>Tow Magic - Tow Management Made Easy</h1>
+			<hr />
+			<h:link value="Add Tow" outcome="addTow"></h:link>
+			<hr/>
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:dataTable id="towList" var="towVar"
+					value="#{towUtility.tows}" editable="true"
+					rowKey="#{tow.id}">
+
+					<p:ajax event="rowEdit" listener="#{towUtility.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{towUtility.onRowCancel}" update=":form:msgs" />
+						
+					<p:column headerText="ID">
+						<h:outputText value="#{towVar.id}" />
+					</p:column>
+					<p:column headerText="Customer">
+						<h:outputText value="#{towUtility.getCustomerString(towVar.customerID)}" />
+					</p:column>
+					<p:column headerText="Driver">
+						<h:outputText value="#{towUtility.getDriverString(towVar.driverID)}" />
+					</p:column>
+					<p:column headerText="Vehicle">
+						<h:outputText value="#{towUtility.getVehicleString(towVar.vehicleID)}" />
+					</p:column>
+					<p:column headerText="Time Estimate">
+						<h:outputText value="#{towVar.estimateTime}" />
+					</p:column>
+					<p:column headerText="Status">
+						<h:outputText value="#{towVar.status}" />
+					</p:column>
+					<p:column style="width:32px">
+						<p:commandLink id="editLink" styleClass="ui-icon ui-icon-pencil"
+							update="@form" action="#{towUtility.editHandler(towVar)}" />
+						<p:commandLink id="deleteLink" styleClass="ui-icon ui-icon-trash"
+							update="@form" action="#{towUtility.removeHandler(towVar)}" />
+
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

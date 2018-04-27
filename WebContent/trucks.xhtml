@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<ui:composition template="template.xhtml">
+		<ui:define name="title">Tow Magic - Trucks</ui:define>
+		<ui:define name="content">
+			<h1>Trucks</h1>
+			<hr />
+			<h:link value="Add Truck" outcome="addTruck"></h:link>
+			<hr />
+			<h:form id="form">
+				<p:growl id="msgs" showDetail="true" />
+				<p:dataTable id="vehicleList" var="vehic"
+					value="#{vehicleUtility.vehicles}" editable="true"
+					rowKey="#{vehic.id}">
+					<!-- <p:ajax event="rowSelect" listener="#{vehicleUtility.onRowSelect}" /> -->
+
+					<p:ajax event="rowEdit" listener="#{vehicleUtility.onRowEdit}"
+						update=":form:msgs" />
+					<p:ajax event="rowEditCancel"
+						listener="#{vehicleUtility.onRowCancel}" update=":form:msgs" />
+					<p:column headerText="ID">
+						<h:outputText value="#{vehic.id}" />
+					</p:column>
+					<p:column headerText="Make">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{vehic.make}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{vehic.make}" style="width:100%"
+									label="Make" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Model">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{vehic.model}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{vehic.model}" style="width:100%"
+									label="Model" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Color">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{vehic.color}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{vehic.color}" style="width:100%"
+									label="Color" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Plate">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{vehic.plate}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{vehic.plate}" style="width:100%"
+									label="Plate" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column headerText="Year">
+						<p:cellEditor>
+							<f:facet name="output">
+								<h:outputText value="#{vehic.year}" />
+							</f:facet>
+							<f:facet name="input">
+								<p:inputText value="#{vehic.year}" style="width:100%"
+									label="Year" />
+							</f:facet>
+						</p:cellEditor>
+					</p:column>
+					<p:column style="width:32px">
+						<p:rowEditor />
+						<p:commandLink id="deleteLink" styleClass="ui-icon ui-icon-trash" update="@form" action="#{vehicleUtility.removeHandler(vehic)}"/>
+					</p:column>
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>
